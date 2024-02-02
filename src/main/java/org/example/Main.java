@@ -1,6 +1,5 @@
 package org.example;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Scanner;
 
@@ -16,7 +15,7 @@ public class Main {
         boolean simulation = true;
 
         while (simulation) {
-            System.out.println("Operation\n"+
+            System.out.println("Operation \n"+
                     "Postive value Add car\n"+
                     "Negative value Remove car\n" +
                     "0 to Exit");
@@ -24,7 +23,8 @@ public class Main {
 
             int carreg = kb.nextInt();
             if (carreg > 0) {
-                System.out.println("Pushing cars to the driveway");
+                System.out.println("Pushing cars to the driveway\n");
+
                     System.out.println("Enter Car registration number");
 
                     driveway.push(carreg);
@@ -35,31 +35,24 @@ public class Main {
                 System.out.println("Pushing cars to street");
                 int option = carreg * -1;
 
-                if (!driveway.isEmpty() && driveway.peek() == option ) {
-                    driveway.pop();
-                    System.out.println("CAR NUMBER IS "+ option);
+                while (!driveway.isEmpty()){
+
+                    int car = driveway.pop();
+                    if (car == option)
+                        break;
+
+                    street.push(car);
+
 
                 }
-                else {
-                    while (!driveway.isEmpty()){
-                        street.push(driveway.pop());
-                    }
-                    while(!street.isEmpty() && street.peek()!= option){
+                System.out.println("street " +street);
+                System.out.println("driveway " +driveway);
+                while (!street.isEmpty()){
 
-                        driveway.push(street.pop());
-                    }
-                    if( street.peek()==option  ){
-
-                        street.pop();
-                    }
-                    else {
-                        System.out.println("Car Registration "+ option + "isnt in the driveway");
-                    }
+                    driveway.push(street.pop());
                 }
-                System.out.println("The Street " + street );
 
             }
-
 
             else{
                 System.out.println("END");

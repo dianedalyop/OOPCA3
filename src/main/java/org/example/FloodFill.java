@@ -18,10 +18,10 @@ public class FloodFill {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter starting row (0-9): ");
+        System.out.print("Enter starting row ");
         int startRow = scanner.nextInt();
 
-        System.out.print("Enter starting column (0-9): ");
+        System.out.print("Enter starting column ");
         int startCol = scanner.nextInt();
 
         Stack<Pair> stack = new Stack<>();
@@ -32,10 +32,10 @@ public class FloodFill {
         while (!stack.isEmpty()) {
             Pair current = stack.pop();
 
-            if (matrix[current.row][current.col] == 0) {
-                matrix[current.row][current.col] = order++;
-                fillNeighbors(matrix, current.row, current.col, stack);
-            }
+
+
+
+
         }
 
         // Print the resulting matrix
