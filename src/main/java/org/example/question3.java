@@ -1,7 +1,7 @@
 package org.example;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.File;
+
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -9,49 +9,44 @@ import java.util.Scanner;
 public class question3 {
 
     public static void main(String[] args) {
+        // Replace "YourJavaFile.java" with the path to your Java source file
+        File inputFile = new File("YourJavaFile.java");
 
-        String filePath = "FloodFill.java";
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            Scanner scanner = new Scanner(reader);
-
+        try {
+            Scanner scanner = new Scanner(inputFile);
             scanner.useDelimiter("[^A-Za-z0-9_]+");
 
-
             Map<String, StringBuilder> identifierIndex = new HashMap<>();
-
             int lineNumber = 0;
 
             while (scanner.hasNextLine()) {
                 lineNumber++;
                 String line = scanner.nextLine();
 
-                // Scan each line for identifiers
-                while (scanner.hasNext()) {
-                    String identifier = scanner.next();
-
-                    // Update the index map
-                    if (!identifier.isEmpty()) {
-                        identifierIndex
-                                .computeIfAbsent(identifier, k -> new StringBuilder())
+                Scanner lineScanner = new Scanner(line);
+                while (lineScanner.hasNext()) {
+                    String identifier = lineScanner.next();
+                    if (isIdentifier(identifier)) {
+                        // Add or append line number to the identifier's occurrence list
+                        identifierIndex.computeIfAbsent(identifier, k -> new StringBuilder())
                                 .append("Line ").append(lineNumber).append(": ").append(line).append("\n");
                     }
                 }
-
-                // Reset scanner for the next line
-                scanner = new Scanner(line);
-                scanner.useDelimiter("[^A-Za-z0-9_]+");
             }
 
             // Print the index
             for (Map.Entry<String, StringBuilder> entry : identifierIndex.entrySet()) {
                 System.out.println("Identifier: " + entry.getKey());
                 System.out.println(entry.getValue());
-                System.out.println("-------------");
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + inputFile.getPath());
         }
+    }
+
+    private static boolean isIdentifier(String str) {
+        // Check if the string consists only of letters, numbers, and underscores
+        return str.matches("[A-Za-z0-9_]+");
     }
 }

@@ -1,68 +1,45 @@
 package org.example;
-
-import java.util.Scanner;
-import java.util.Stack;
-
-class Pair {
-    int row, col;
-
-    Pair(int row, int col) {
-        this.row = row;
-        this.col = col;
-    }
-}
-
 public class FloodFill {
+
+
+    static int[][] matrix = new int[5][5];
+
+    static void floodFill(int x, int y, int targetColor, int replacementColor) {
+        // Base cases
+        if (x < 0 || x >= matrix.length || y < 0 || y >= matrix[0].length)
+            return;
+        if (matrix[x][y] != targetColor)
+            return;
+
+        // Replace the target color at (x, y) with replacement color
+        matrix[x][y] = replacementColor;
+
+        // Recursive calls to adjacent cells
+        floodFill(x + 1, y, targetColor, replacementColor); // Right
+        floodFill(x - 1, y, targetColor, replacementColor); // Left
+        floodFill(x, y + 1, targetColor, replacementColor); // Down
+        floodFill(x, y - 1, targetColor, replacementColor); // Up
+    }
+
     public static void main(String[] args) {
-        int[][] matrix = new int[10][10];
+        // Initialize the matrix with some values
+        int[][] matrix = {
+                {1, 1, 1, 0, 0},
+                {1, 0, 1, 0, 1},
+                {0, 1, 0, 0, 1},
+                {1, 0, 1, 1, 1},
+                {0, 0, 0, 0, 1}
+        };
 
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter starting row ");
-        int startRow = scanner.nextInt();
-
-        System.out.print("Enter starting column ");
-        int startCol = scanner.nextInt();
-
-        Stack<Pair> stack = new Stack<>();
-        int order = 1;
-
-        stack.push(new Pair(startRow, startCol));
-
-        while (!stack.isEmpty()) {
-            Pair current = stack.pop();
-
-
-
-
-
-        }
+        // Perform flood fill starting from position (2, 2) with target color 0 and replacement color 2
+        floodFill(2, 2, 0, 2);
 
         // Print the resulting matrix
-        for (int[] row : matrix) {
-            for (int value : row) {
-                System.out.print(value + " ");
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print(matrix[i][j] + " ");
             }
             System.out.println();
         }
     }
-
-    private static void fillNeighbors(int[][] matrix, int row, int col, Stack<Pair> stack) {
-        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-
-        for (int[] direction : directions) {
-            int newRow = row + direction[0];
-            int newCol = col + direction[1];
-
-            if (isValid(matrix, newRow, newCol)) {
-                matrix[newRow][newCol] = matrix[row][col] + 1;
-                stack.push(new Pair(newRow, newCol));
-            }
-        }
-    }
-
-    private static boolean isValid(int[][] matrix, int row, int col) {
-        return row >= 0 && row < matrix.length && col >= 0 && col < matrix[0].length && matrix[row][col] == 0;
-    }
 }
-
