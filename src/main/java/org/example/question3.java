@@ -9,8 +9,8 @@ import java.util.Scanner;
 public class question3 {
 
     public static void main(String[] args) {
-        // Replace "YourJavaFile.java" with the path to your Java source file
-        File inputFile = new File("YourJavaFile.java");
+
+        File inputFile = new File("javafile.java");
 
         try {
             Scanner scanner = new Scanner(inputFile);
@@ -27,7 +27,7 @@ public class question3 {
                 while (lineScanner.hasNext()) {
                     String identifier = lineScanner.next();
                     if (isIdentifier(identifier)) {
-                        // Add or append line number to the identifier's occurrence list
+                        // add line number to the identifier's occurrence list
                         identifierIndex.computeIfAbsent(identifier, k -> new StringBuilder())
                                 .append("Line ").append(lineNumber).append(": ").append(line).append("\n");
                     }
@@ -46,7 +46,7 @@ public class question3 {
     }
 
     private static boolean isIdentifier(String str) {
-        // Check if the string consists only of letters, numbers, and underscores
+
         return str.matches("[A-Za-z0-9_]+");
     }
 }

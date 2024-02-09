@@ -25,8 +25,6 @@ public class Main {
             if (carreg > 0) {
                 System.out.println("Pushing cars to the driveway\n");
 
-                    System.out.println("Enter Car registration number");
-
                     driveway.push(carreg);
 
                 System.out.println(driveway);

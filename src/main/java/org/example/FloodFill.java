@@ -1,45 +1,61 @@
 package org.example;
+import java.util.*;
+
+class Pair {
+    int row;
+    int col;
+
+    public Pair(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
+}
+
 public class FloodFill {
+    public static void main(String[] args) {
+        int[][] array = new int[10][10];
+        Scanner scanner = new Scanner(System.in);
 
+        System.out.print("Enter starting row (0-9): ");
+        int startRow = scanner.nextInt();
+        System.out.print("Enter starting column (0-9): ");
+        int startCol = scanner.nextInt();
 
-    static int[][] matrix = new int[5][5];
+        floodFill(array, startRow, startCol);
 
-    static void floodFill(int x, int y, int targetColor, int replacementColor) {
-        // Base cases
-        if (x < 0 || x >= matrix.length || y < 0 || y >= matrix[0].length)
-            return;
-        if (matrix[x][y] != targetColor)
-            return;
-
-        // Replace the target color at (x, y) with replacement color
-        matrix[x][y] = replacementColor;
-
-        // Recursive calls to adjacent cells
-        floodFill(x + 1, y, targetColor, replacementColor); // Right
-        floodFill(x - 1, y, targetColor, replacementColor); // Left
-        floodFill(x, y + 1, targetColor, replacementColor); // Down
-        floodFill(x, y - 1, targetColor, replacementColor); // Up
+        // Print the entire 2D array
+        for (int[] row : array) {
+            System.out.println(Arrays.toString(row));
+        }
     }
 
-    public static void main(String[] args) {
-        // Initialize the matrix with some values
-        int[][] matrix = {
-                {1, 1, 1, 0, 0},
-                {1, 0, 1, 0, 1},
-                {0, 1, 0, 0, 1},
-                {1, 0, 1, 1, 1},
-                {0, 0, 0, 0, 1}
-        };
+    public static void floodFill(int[][] array, int startRow, int startCol) {
+        Stack<Pair> stack = new Stack<>();
+        stack.push(new Pair(startRow, startCol));
+        int count = 1;
 
-        // Perform flood fill starting from position (2, 2) with target color 0 and replacement color 2
-        floodFill(2, 2, 0, 2);
+        while (!stack.isEmpty()) {
+            Pair current = stack.pop();
+            int row = current.row;
+            int col = current.col;
 
-        // Print the resulting matrix
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
-                System.out.print(matrix[i][j] + " ");
+            if (array[row][col] == 0) {
+                array[row][col] = count++;
+
+                // Check and push unfilled neighbors onto the stack
+                if (row > 0 && array[row - 1][col] == 0) {
+                    stack.push(new Pair(row - 1, col));
+                }
+                if (row < 9 && array[row + 1][col] == 0) {
+                    stack.push(new Pair(row + 1, col));
+                }
+                if (col > 0 && array[row][col - 1] == 0) {
+                    stack.push(new Pair(row, col - 1));
+                }
+                if (col < 9 && array[row][col + 1] == 0) {
+                    stack.push(new Pair(row, col + 1));
+                }
             }
-            System.out.println();
         }
     }
 }
