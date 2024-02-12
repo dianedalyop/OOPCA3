@@ -3,7 +3,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Scanner;
 
-public class Main {
+public class question1 {
     public static void main(String[] args) {
         // QUESTION 1
         Scanner kb = new Scanner(System.in);

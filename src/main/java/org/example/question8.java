@@ -4,7 +4,7 @@ import java.util.Stack;
 
 public class question8 {
 
-    public static void main(String [] srgs)
+    public static void main(String [] args)
     {
         Scanner kb =  new Scanner(System.in);
 

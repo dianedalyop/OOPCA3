@@ -27,7 +27,7 @@ public class question3 {
                 while (lineScanner.hasNext()) {
                     String identifier = lineScanner.next();
                     if (isIdentifier(identifier)) {
-                        // add line number to the identifier's occurrence list
+                        //  adding a line number to the identifier
                         identifierIndex.computeIfAbsent(identifier, k -> new StringBuilder())
                                 .append("Line ").append(lineNumber).append(": ").append(line).append("\n");
                     }
