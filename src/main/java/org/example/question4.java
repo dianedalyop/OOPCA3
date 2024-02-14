@@ -33,7 +33,8 @@ public class question4 {
     private static boolean isValidHTML(String html) {
         Stack<String> stack = new Stack<>();
 
-        String[] tags = html.split("\\s+");
+        String[] tags = html.split("\\s+"); //splits the input string html into an array of strings, using whitespace as the delimiter.
+        // This assumes that each tag is separated by whitespace.
 
         for (String tag : tags) {
             if (tag.startsWith("</")) {
